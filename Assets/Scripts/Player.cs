@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -52,13 +51,15 @@ public class Player : MonoBehaviour
 		if (turningLeft)
 		{
 			// Rotate left
-			rb.AddTorque(Vector3.up * -rotationForce);
+			//rb.AddTorque(Vector3.up * -rotationForce);
+			rb.AddForceAtPosition(-transform.right * rotationForce, leftThrustPS.transform.position);
 		}
 		
 		if (turningRight)
 		{
 			// Rotate right
-			rb.AddTorque(Vector3.up * rotationForce);
+			//rb.AddTorque(Vector3.up * rotationForce);
+			rb.AddForceAtPosition(transform.right * rotationForce, rightThrustPS.transform.position);
 		}
 
 		var finalMovementForce = movementForce;
