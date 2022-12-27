@@ -5,7 +5,6 @@ using Random = UnityEngine.Random;
 public class ObstacleSpawner : MonoBehaviour
 {
 	[SerializeField] private Obstacle prefab;
-	[SerializeField] private Transform player;
 	[SerializeField] private int maxObstacles;
 	[SerializeField] private float minSpawnDistance;
 	[SerializeField] private float maxSpawnDistance;
@@ -27,7 +26,7 @@ public class ObstacleSpawner : MonoBehaviour
 				return;
 			
 			var obs = Instantiate(prefab);
-			obs.Init(this, player, dist + 20f);
+			obs.Init(this, dist + 20f);
 			obs.transform.position = pos;
 			instances.Add(obs);
 		}
