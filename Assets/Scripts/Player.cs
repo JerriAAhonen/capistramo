@@ -3,6 +3,12 @@ using Vector3 = UnityEngine.Vector3;
 
 public class Player : MonoBehaviour
 {
+	[SerializeField] private int id;
+	[SerializeField] private KeyCode left;
+	[SerializeField] private KeyCode right;
+	[SerializeField] private KeyCode up;
+	[SerializeField] private KeyCode down;
+	[SerializeField] private KeyCode thrust;
 	[SerializeField] private float movementForce;
 	[SerializeField] private float boostForce;
 	[SerializeField] private float rotationForce;
@@ -22,27 +28,27 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.A))
+		if (Input.GetKeyDown(left))
 		{
 			turningLeft = true;
 			rightThrustPS.Play();
 			leftThrustPS.Stop(true, ParticleSystemStopBehavior.StopEmitting);
 		}
 
-		if (Input.GetKeyUp(KeyCode.A))
+		if (Input.GetKeyUp(left))
 		{
 			turningLeft = false;
 			rightThrustPS.Stop(true, ParticleSystemStopBehavior.StopEmitting);
 		}
 
-		if (Input.GetKeyDown(KeyCode.D))
+		if (Input.GetKeyDown(right))
 		{
 			turningRight = true;
 			leftThrustPS.Play();
 			rightThrustPS.Stop(true, ParticleSystemStopBehavior.StopEmitting);
 		}
 
-		if (Input.GetKeyUp(KeyCode.D))
+		if (Input.GetKeyUp(right))
 		{
 			turningRight = false;
 			leftThrustPS.Stop(true, ParticleSystemStopBehavior.StopEmitting);
@@ -64,7 +70,7 @@ public class Player : MonoBehaviour
 
 		var finalMovementForce = movementForce;
 		var rearThrustPSMain = rearThrustPS.main;
-		if (Input.GetKey(KeyCode.Space))
+		if (Input.GetKey(thrust))
 		{
 			finalMovementForce = boostForce;
 			rearThrustPSMain.startSize = 3f;

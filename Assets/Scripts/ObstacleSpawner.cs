@@ -7,7 +7,9 @@ public class ObstacleSpawner : MonoBehaviour
 	[SerializeField] private Obstacle prefab;
 	[SerializeField] private Transform player;
 	[SerializeField] private int maxObstacles;
-	[SerializeField] private float spawnDistance;
+	[SerializeField] private float minSpawnDistance;
+	[SerializeField] private float maxSpawnDistance;
+	[SerializeField] private float minDistToOthers;
 
 	private readonly HashSet<Obstacle> instances = new();
 
@@ -17,14 +19,15 @@ public class ObstacleSpawner : MonoBehaviour
 		{
 			var rand = Random.insideUnitCircle.normalized;
 			var dir = new Vector3(rand.x, 0, rand.y);
-			var pos = transform.position + dir * spawnDistance;
+			var dist = Random.Range(minSpawnDistance, maxSpawnDistance);
+			var pos = transform.position + dir * dist;
 			
-			var hitColliders = Physics.OverlapSphere(pos, 2);
+			var hitColliders = Physics.OverlapSphere(pos, minDistToOthers);
 			if (hitColliders.Length > 0)
 				return;
 			
 			var obs = Instantiate(prefab);
-			obs.Init(this, player, spawnDistance + 20f);
+			obs.Init(this, player, dist + 20f);
 			obs.transform.position = pos;
 			instances.Add(obs);
 		}
